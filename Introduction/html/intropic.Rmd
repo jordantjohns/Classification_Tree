@@ -1,0 +1,53 @@
+---
+title: "CART Example"
+date: "December 17, 2015"
+output: html_document
+---
+
+Here we show an example where a classification tree could be used.  Here we have, from a subset of the car90 data in R, a list of 70 cars from Japan and the United States.  Along with the country each car is made in, there are a list of about 30 different variables.  If we wanted to predict which country each car is from, we could use a classification tree to do so.  
+
+After fitting a CART model on the cars, using country as the response, we get the following results.  In Figure 1, we can see a basic plot of the resulting 'tree' from the model. The top node, or root node splits the data into cars that have Hp.revs less than 4900 (maximum safe engine speed in RPM) to the left and those that don't to the right.  Then it splits the two resulting nodes - the node on the left (says USA) has met the stopping criteria and so is not split further (these are predominantly cars from the USA). 
+
+The other node is split using Front.Hd (the distance from the head at the front of the car to the head of the passenger), those that have Front.Hd $\ge 3.2$ to the left and those that don't to the right.  The process gets repeated until all nodes (these are the terminal nodes) meet the stopping criteria and there are no further splits.  
+
+As you can see, each terminal node has a label, the category that dominates that terminal node.  This is a simple graphical representation of the model.  If you were to predict the country of origin for a new vehicle, you would start at the root node, and follow the tree down to the whichever terminal node the car corresponds to and that would be the prediction for that car.  For example, if you had a car that had HP.revs greater than 4900, a Front.Hd $\ge 3.2$ and a length $\ge 186$ you would predict that this car is from the United States. 
+
+###Figure 1
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+library(rpart)
+library(rpart.plot)
+library(rattle)
+car90_usjapan<-car90[car90$Country %in% c("Japan", "USA"),]
+uscars<-car90_usjapan$Country == "USA"
+jcars<-car90_usjapan$Country == "Japan"
+car90_usjapan$Country<-factor(car90_usjapan$Country,levels=c("USA","Japan"))
+cartree<-rpart(Country~Disp2+Front.Hd+HP + HP.revs+Height+Length+Price+Sratio.p+Tank+Turning+Weight+Width,data=car90_usjapan,control=rpart.control(minsplit=4,cp=0))
+prp(cartree,main="CART Model for Predicting Country of Car (Japan/USA)")
+```
+
+
+
+###Figure 2
+
+Figure 2 shows the classification of the cars after the first two nodes, plotted on the graph corresponding to their respective Front.Hd and HP.revs. Cars are blue circles if they are from the US, and red diamonds if from Japan. The bottom half would be classified as from the United States, the upper left quadrant as from Japan. The upper right quadrant is further split according to other variables that aren't shown on this two dimensional plot.  
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+plot(car90_usjapan$Front.Hd[uscars],car90_usjapan$HP.revs[uscars], col="blue",pch=18,xlim=c( min(car90_usjapan$Front.Hd), max(car90_usjapan$Front.Hd,na.rm=T)), ylim=c( min(car90_usjapan$HP.revs), max(car90_usjapan$HP.revs)), ylab="Max Safe Engine Speed (rpm)", xlab="Front Head (inches)")
+points(car90_usjapan$Front.Hd[jcars],car90_usjapan$HP.revs[jcars],col="red",pch=19,cex=.85)
+abline(h=4900,v=3.2)
+legend("topright",c("USA","Japan"),col=c("blue","red"), pch=c(18,19),cex=.8)
+```
+
+
+
+
+###Figure 3
+
+Figure 3 contains a separate tree plot with more information about the model. The first line in each box is the dominating classifier in each node.  The two numbers on the second row of each block is the respective percentages, ordered by country - USA then Japan. The third line is the percentage of all observations in that node.  So for examle, the root node is predominantly US cars, 56% from the USA and 44% from Japan, and has all observations in that node.  Then below is the condition for each split. 
+
+Each node is colored according to how 'pure' it is (percentage of the dominant country, darker is more 'pure'). Note that each terminal node almost perfectly classifies the cars to each country.  There are only a few observations that get missclassified after the first split.  
+
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+fancyRpartPlot(cartree)
+```
+

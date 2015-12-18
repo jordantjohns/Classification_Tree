@@ -1,0 +1,78 @@
+- Class: meta
+  Course: Classification Tree
+  Lesson: Introduction
+  Author: Jordan Johns
+  Type: Standard
+  Organization: JHU
+  Version: 2.2.21
+
+- Class: text
+  Output: "Welcome to the Introduction to Classification Trees!  This tutorial will 
+           introduce the student to the Classification and Regression Trees Methodology (CART)
+           introduced by Breiman, Friedman, Olshen, and Stone in 1984.  For more 
+           information on CART models and in depth details that will not be covered here, students can refer 
+           to the book, 'Classification and Regression Trees' by Breiman and Friedman (1984)."
+
+- Class: text
+  Output: "This lesson consists of multiple parts.  First, in this introduction, 
+           the CART methodology will be explained including examples of
+           common applications.  In the second section, the student will have the opportunity 
+           to fit a CART model of their own using data provided.  Third, the features and 
+           potential problems of this methodology will be discussed."
+
+- Class: cmd_question
+  Output: "Are you ready to begin?  If you are ready, type 'yes', if not 'skip()' your way 
+        through the questions or type 'bye()' to exit."
+  CorrectAnswer: yes
+  AnswerTests: omnitest(correctVal='yes')
+  Hint: Type 'yes'
+
+- Class: text
+  Output: "CART models are prediction models that use a decision tree structure
+           to predict a response or target value.  Models with response values that are
+           factors or have a finite number of possible responses are called
+           classification trees.  Models with continuous responses are referred to as regression trees.  
+           This lesson will primarily cover classification trees. For more 
+           information on regression trees, see the CART book by Breiman and Friedman."
+           
+- Class: text
+  Output: "First, we begin by examining how a model is 'grown'. For each explanatory
+           variable, a splitting point is found that 'best' separates the data into 
+           classes by response. The definition for 'best' will be explained in more detail later."  
+           
+- Class: text
+  Output:  "Then the explanatory variable with the 'best' splitting point is chosen and the data 
+           is split into two parts.  This first split is called the 'root node.' Nodes are locations
+           in the tree where the data is subset according to a specific condition."
+           
+- Class: text
+  Output:  For each resulting node, the process is repeated until there are at most k observations 
+           in each terminal node, or some other criteria is reached concerning 
+           the 'impurity' of each terminal node."
+           
+- Class: text
+  Output:  "A terminal node is a node that has no 'children' nodes, or no splits or branches 
+            beneath it." 
+           
+- Class: figure
+  Output: "Here is an example of a situation where CART models may be useful.  
+          Read the page in the viewer for more details and hit the return key to 
+          continue when done."
+  Figure: intropic.R
+  FigureType: new
+
+- Class: text
+  Output: "Now, back to how the tree is grown." 
+
+- Class: figure
+  Output: "To determine how each split is made, many different criteria can be used.  
+            The document that has opened up explains this, when you are finished 
+            reading the explanation.  Press return to move on."
+  Figure: growcriteria.R
+  FigureType: new
+
+
+- Class: text
+  Output: This concludes the introduction portion of this lesson.  
+           In the remaining two sections, you will fit a classification tree model 
+           and then explore the benefits and difficulties of this model.

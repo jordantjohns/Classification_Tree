@@ -1,0 +1,34 @@
+---
+title: "Splitting Criteria"
+author: ""
+date: "December 18, 2015"
+output: html_document
+---
+
+When a split is made, the algorithm searches for a split that will maximize the reduction in impurity of a node.  In other words find the split that makes the observations inside the two new 'children' nodes most like each other.  There are various was to measure the impurity of a node. For classification trees, some of the most common ones are the Gini index, the information index (also called the entropy), and the deviance.  For regression trees, a common measure of impurity is the residual sum of squares.  
+
+The Gini index, the information index, and deviance criteria are shown below.  First, however, we define a few parameters, $p_{ik}$ is the probability that an observation at node $i$ is in class $k$ for $k=1,$ ... $, K$ which is estimated by $\hat{p}_{ik} = \frac{n_{ik}}{\bar{n}_i}$ where  $n_{ik}$ is the number of observations in class $k$ at node $i$, and $\bar{n}_i$ is the total number of observations at node $i$.  The three criteria are defined for a specific node $i$ as follows.  
+
+
+\vspace{3mm}
+####Gini Index 
+
+$$
+\sum_{j \ne k} p_{ij}*p_{ik} = 1-\sum_{k}p_{ik}^2
+$$
+
+####Information Index or entropy
+
+$$
+-\sum_{k}p_{ik}\mbox{log}(p_{ik})
+$$
+
+####Deviance
+
+$$
+-2* \sum_{k} n_{ik}\mbox{log}p_{ik} 
+$$
+
+
+\vspace{3m}
+If the impurity is not decreased by a certain percentage (usually specified by the user) or if a number of other stopping criteria are met, then the algorithm stops and the node is not split. Other common stopping criteria include a minimum number of observations needed to split a node, or a minimum number of observations in a terminal node. This will be more clear later when we fit a CART model.  
