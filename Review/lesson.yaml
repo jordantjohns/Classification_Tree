@@ -1,0 +1,66 @@
+- Class: meta
+  Course: Classification Tree
+  Lesson: Review
+  Author: Jordan
+  Type: Standard
+  Organization: JHU
+  Version: 2.2.21
+
+- Class: text
+  Output: "Welcome to the third section of this lesson. In this section, we will 
+          go overthe advantages and disadvantages to CART models and then 
+          review some things presented in this lesson."
+
+- Class: figure
+  Output: To start, please read over a file with a list of some of the advantages and disadvantages of CART models.  If there are any questions, see the references at the bottom of the document as well. Press enter when you are ready to move on.
+  Figure: adv.R
+  FigureType: new
+
+- Class: text
+  Output: "To conclude, we will have a little quiz to review what has been learned."
+  
+  
+
+- Class: mult_question
+  Output: What does CART stand for?
+  AnswerChoices: Classification and Regression Trees;Classification Analysis and Regression Tool;Cocaine and Amphetamine-Regulated Transcript;Computer Analysis and Response Trees
+  CorrectAnswer: Classification and Regression Trees
+  AnswerTests: omnitest(correctVal= 'Classification and Regression Trees')
+  Hint: Remember the two types of CART models are classification trees and regression trees
+
+- Class: mult_question
+  Output: What package did we use to fit CART models?
+  AnswerChoices: rpart;tree;cart;party
+  CorrectAnswer: rpart
+  AnswerTests: omnitest(correctVal= 'rpart')
+  Hint: The function we used was rpart()
+
+- Class: mult_question
+  Output: What is the term used to decide what is the best split at each node?
+  AnswerChoices: impurity;consistency;prediction power;evilness
+  CorrectAnswer: impurity
+  AnswerTests: omnitest(correctVal= 'impurity')
+  Hint: Think really hard
+  
+- Class: mult_question
+  Output: Which of the following was not one of the impurity measures used for classification trees?
+  AnswerChoices: gini index;information index;Entropy;residual sum of squares;deviance
+  CorrectAnswer: deviance
+  AnswerTests: omnitest(correctVal= 'deviance')
+  Hint: One of these was specific to regression trees.
+  
+   
+- Class: mult_question
+  Output: Who were some of the first to introduce CART models
+  AnswerChoices: Breiman, Friedman, Olshen and Stone;R.A. Fisher;T Hastie, R Tibshirani, J Friedman;B Efron, RJ Tibshirani
+  CorrectAnswer: Breiman, Friedman, Olshen and Stone
+  AnswerTests: omnitest(correctVal= 'Breiman, Friedman, Olshen and Stone')
+  Hint: Not Tibshirani...
+  
+- Class: mult_question
+  Output: Which of the following was not an advantage of CART models
+  AnswerChoices: Can scale down easily to small data problems;Easily incorporate interactions;have atendency to overfit model to the data;easy to explain and interpret
+  CorrectAnswer: have atendency to overfit model to the data
+  AnswerTests: omnitest(correctVal= 'have atendency to overfit model to the data')
+  Hint: One is a disadvantage
+  

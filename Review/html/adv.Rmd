@@ -1,0 +1,35 @@
+---
+title: "The Good, the Bad, and the Ugly"
+author: ""
+date: "December 18, 2015"
+output: html_document
+---
+
+##Advantages
+
+* Decision trees are a very natural way to look at many problems, especially with categorical variables
+* Many doctors and clinicians are fond of them because they are easy to explain and are very translatable to patient populations 
+* The models are invariant to transformations in the predictor space
+* It is easy to use with a non-binary categorical response situation, which is not the case with many other models
+* Easily incorporates interactions
+* Can scale down easily to small data problems
+* Easy to extend with boosting and bagging to make more robust and acheive greater predictive power 
+
+
+##Disadvantages
+* Due to hierarchical nature and selection bias for the splits, may not be able to find overall "best" model
+* Hard to assess the uncertainty about individual trees for inference
+* Individual trees (simple) do not have good prediction results 
+* Also there is a tendency to overfit model to the data
+* Big trade off between tree size and accuracy of model
+
+##Sources
+The following were used in the making of this tutorial and contain many other interesting and important facts about CART models and ways to fit and use them.  There are other packages in R as well that can fit CART models and can plot trees.  The tutorial uses rpart, but packages tree and party have helpful functions as well, including other ways to plot the trees.
+
+* Athappilly, K., Muhammad A.R., "A comparative predictive analysis of neural networks (NNs), nonlinear regression and classification and regression tree (CART) models,"Volume 29(1), (July 2005), p. 65–74. 
+* Breiman L, Friedman JH, Olshen RA, Stone CJ. Classification and Regression Trees. CRC Press; 1984.
+* http://www.biostat.jhsph.edu/~ririzarr/Teaching/649/section-11.pdf
+* I.S. Markham, R.G. Mathieu, B.A. Wray "Kanban setting through artificial intelligence: A comparative study of artificial neural networks and decision threes
+Integrated Manufacturing," 11(4) (2000), p. 239.
+* https://cran.r-project.org/web/packages/rpart/vignettes/longintro.pdf
+* http://www.r-bloggers.com/a-brief-tour-of-the-trees-and-forests/
