@@ -5,3 +5,143 @@
   Type: Standard
   Organization: JHU
   Version: 2.2.21
+
+- Class: text
+  Output: "Welcome to the second portion of the CART lesson.  In this section, 
+          we walk through the steps of fitting a CART model for a set of 146 patients 
+          with Stage C prostate cancer.  In this study, we are interested in predicting 
+          if the cancer is progressing or not."
+
+
+- Class: cmd_question
+  Output: First we look at the data to see what variables we have. The 
+           column labeled pgstat indicates whether the cancer is progressing or not. 
+           Type 'head(stagec)' to look at the data.
+  CorrectAnswer: head(stagec)
+  AnswerTests: omnitest(correctExpr="head(stagec)")
+  Hint: Type 'head(stagec)' 
+
+- Class: cmd_question
+  Output: Since we want to predict pgstat, the progression status of the 
+           cancer, we want to make pgstat a factor variable, please do this.
+  CorrectAnswer: progstat <- factor(stagec$pgstat, levels = 0:1, labels = c('Not', 'Prog'))
+  AnswerTests: omnitest(correctVal="progstat <- factor(stagec$pgstat, levels = 0:1, labels = c('Not', 'Prog'))")
+  Hint: Type progstat <- factor(stagec$pgstat, levels = 0:1, labels = c('Not', 'Prog'))
+
+- Class: cmd_question
+  Output: "Now we are going to fit the CART model.  To do this, we use the rpart 
+          function from the rpart package.  To see what arguments we have to provide 
+          to the function, type help(rpart).  It is set up like many other model fitting 
+          functions, but pay special attention to the method, parms, and control sections. "
+  CorrectAnswer: help(rpart)
+  AnswerTests: omnitest(correctExpr="help(rpart)")
+  Hint: Type help(rpart)
+  
+- Class: text
+  Output: "For more information about the control section click on the rpart.control 
+            or look it up in the help file. This will explain how to control the stopping 
+            mechanism for the tree fitting algorithm.  When you are done, press return 
+            to continue."
+            
+- Class: cmd_question
+  Output: "Now we are going to fit the CART model (for real this time). Type the command that 
+          fits the CART model using all variables except for pgtime, using progstat as 
+          the response."
+  CorrectAnswer: cfit <- rpart(progstat ~ age + eet + g2 + grade + gleason + ploidy, data = stagec, method = 'class')
+  AnswerTests: omnitest(correctExpr="cfit <- rpart(progstat ~ age + eet + g2 + grade + gleason + ploidy, data = stagec, method = 'class')")
+  Hint: Since the response is a factor, the rpart function will automatically fit a 
+        classification model (not a regression model). But we will be explicit here 
+        anyway.  Type cfit <- rpart(progstat ~ age + eet + g2 + grade + gleason + ploidy, data = stagec, method = 'class').
+         
+
+- Class: cmd_question
+  Output: "To view the model, type print(cfit). You could also type summary(cfit), 
+          this will give you different information, but a lot of it is unnecessary."
+  CorrectAnswer: print(cfit)
+  AnswerTests: any_of_exprs("print(cfit)","summary(cfit)")
+  Hint: Type print(cfit)         
+            
+- Class: cmd_question
+  Output: "To view the model in a more tree like format, type plot(cfit)."
+  CorrectAnswer: plot(cfit)
+  AnswerTests: omnitest(correctExpr="plot(cfit)")
+  Hint: Type plot(cfit)     
+            
+- Class: cmd_question
+  Output: "Type text(cfit) to add text to the tree graph."
+  CorrectAnswer: text(cfit)
+  AnswerTests: omnitest(correctExpr="text(cfit)")
+  Hint: Type text(cfit)             
+            
+- Class: text
+  Output: "As you can see, this doesn't do a very good job of plotting and 
+          is a little hard to read. So there are some other ways of plotting from the 
+          rpart.plot package."            
+            
+            
+- Class: cmd_question
+  Output: "Type prp(cfit) for a more viewer friendly version of the plot"
+  CorrectAnswer: prp(cfit)
+  AnswerTests: omnitest(correctExpr="prp(cfit)")
+  Hint: Type prp(cfit)    
+            
+- Class: cmd_question
+  Output: "You can easily add information to the plot to see what is going on at 
+          each node better.  Type prp(cfit,type=2,extra=104,under=T) to add the 
+          overall probability of being in each node and the relative probability to be 
+          in each child of the corresponding nodes."
+  CorrectAnswer: prp(cfit,type=2,extra=104,under=T)
+  AnswerTests: omnitest(correctExpr="prp(cfit,type=2,extra=104,under=T)")
+  Hint: Type prp(cfit,type=2,extra=104,under=T), you can see additional information
+        by looking at the help file for prp and the vignette included there. 
+            
+- Class: cmd_question
+  Output: "To get a plot like the one shown in the introduction, type 
+          fancyRpartPlot(cfit). "
+  CorrectAnswer: fancyRpartPlot(cfit)
+  AnswerTests: omnitest(correctExpr="fancyRpartPlot(cfit)")
+  Hint: Type fancyRpartPlot(cfit) 
+  
+  
+- Class: cmd_question
+  Output: "To change the impurity index and other parameters for the splitting 
+          function when you fit the model, you can do so with parms(split='information'), 
+          in the rpart function call (the default is the Gini index).  Try it!"
+  CorrectAnswer: cfit <- rpart(progstat ~ age + eet + g2 + grade + gleason + ploidy, data = stagec, parms=list(split = "information"),method = 'class')
+  AnswerTests: omnitest(correctExpr="cfit <- rpart(progstat ~ age + eet + g2 + grade + gleason + ploidy, data = stagec, parms=list(split = 'information'),method = 'class')")
+  Hint: Type cfit <- rpart(progstat ~ age + eet + g2 + grade + gleason + ploidy, data = stagec, parms=list(split = "information"),method = 'class') 
+  
+- Class: cmd_question
+  Output: "Plot the model to see how it compares"
+  CorrectAnswer: prp(cfit,type=2,extra=104,under=T)
+  AnswerTests: omnitest(correctExpr="prp(cfit,type=2,extra=104,under=T)")
+  Hint: Type prp(cfit,type=2,extra=104,under=T), you can see additional information
+        by looking at the help file for prp and the vignette included there.   
+  
+  
+- Class: cmd_question
+  Output: "To change the minimum number of observations to split a node, you can use the control 
+          argument, such as rpart.control(minsplit=10,cp=0) (the default for minsplit 
+          is 20, for cp it is 0.01).  Cp is the minimum improvement in the decrease in 
+          impurity.  Try changing these parameters."
+  CorrectAnswer: cfit <- rpart(progstat ~ age + eet + g2 + grade + gleason + ploidy, data = stagec, control = rpart.control(minsplit=10,cp=0.01),method = 'class')
+  AnswerTests: omnitest(correctExpr="cfit <- rpart(progstat ~ age + eet + g2 + grade + gleason + ploidy, data = stagec, control = rpart.control(minsplit=10,cp=0.01),method = 'class')")
+  Hint: Type cfit <- rpart(progstat ~ age + eet + g2 + grade + gleason + ploidy, data = stagec, control = rpart.control(minsplit=10,cp=0.01),method = 'class') 
+
+- Class: cmd_question
+  Output: "Again, lets plot the model to see how it compares"
+  CorrectAnswer: prp(cfit,type=2,extra=104,under=T)
+  AnswerTests: omnitest(correctExpr="prp(cfit,type=2,extra=104,under=T)")
+  Hint: Type prp(cfit,type=2,extra=104,under=T), you can see additional information
+        by looking at the help file for prp and the vignette included there.   
+  
+- Class: text
+  Output: "These show that you can extend or shorten the length of the tree using 
+          these options depending on your needs.  There are also ways of choosing trees 
+          with cross-validation to evalutate the predictive power of a model compared to 
+          other trees, but that's another topic for another time."   
+
+- Class: text
+  Output: "The final section in this lesson goes over the advantages and disadvantages 
+  of this model, and reviews some of the key topics that have been discussed."  
+
