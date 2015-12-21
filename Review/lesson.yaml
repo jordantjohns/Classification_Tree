@@ -45,7 +45,7 @@
 - Class: mult_question
   Output: Which of the following was not one of the impurity measures used for classification trees?
   AnswerChoices: gini index;information index;Entropy;residual sum of squares;deviance
-  CorrectAnswer: deviance
+  CorrectAnswer: residual sum of squares
   AnswerTests: omnitest(correctVal= 'deviance')
   Hint: One of these was specific to regression trees.
   
@@ -59,8 +59,11 @@
   
 - Class: mult_question
   Output: Which of the following was not an advantage of CART models
-  AnswerChoices: Can scale down easily to small data problems;Easily incorporate interactions;have atendency to overfit model to the data;easy to explain and interpret
+  AnswerChoices: can scale down easily to small data problems;easily incorporate interactions;have atendency to overfit model to the data;easy to explain and interpret
   CorrectAnswer: have atendency to overfit model to the data
   AnswerTests: omnitest(correctVal= 'have atendency to overfit model to the data')
   Hint: One is a disadvantage
   
+- Class: text
+  Output: "Well done! Thank you for completing this tutorial. I hope you have a 
+          wonderful day."

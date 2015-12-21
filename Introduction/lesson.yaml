@@ -20,13 +20,6 @@
            to fit a CART model of their own using data provided.  Third, the features and 
            potential problems of this methodology will be discussed."
 
-- Class: cmd_question
-  Output: "Are you ready to begin?  If you are ready, type 'yes', if not 'skip()' your way 
-        through the questions or type 'bye()' to exit."
-  CorrectAnswer: yes
-  AnswerTests: omnitest(correctVal='yes')
-  Hint: Type 'yes'
-
 - Class: text
   Output: "CART models are prediction models that use a decision tree structure
            to predict a response or target value.  Models with response values that are
